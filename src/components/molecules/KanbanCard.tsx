@@ -2,7 +2,11 @@ import Tag from 'components/atoms/Tag'
 import React from 'react'
 import styled from 'styled-components'
 
-function KanbanCard() {
+interface Props {
+  className?: string,
+}
+
+function KanbanCard(props: Props) {
   const Card = styled.div`
     display: inline-block;
     padding: 10px;
@@ -43,7 +47,7 @@ function KanbanCard() {
   `
 
   return (
-    <Card>
+    <Card className={props.className}>
       <Title>이것은 태스크명입니다.<br />태스크명 두줄</Title>
 
       <div>
