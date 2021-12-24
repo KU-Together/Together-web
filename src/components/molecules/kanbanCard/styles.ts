@@ -8,7 +8,7 @@ export const hoverCursor = css`
   }
 `
 
-export const Card = styled.div`
+export const Container = styled.div`
     ${hoverCursor}
     display: inline-block;
     padding: 15px;

@@ -1,7 +1,8 @@
+import { Card } from 'constants/types'
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import {
-  Card,
+  Container,
   Title,
   Property,
   PropertyRow,
@@ -11,22 +12,21 @@ import {
 
 interface Props {
   className?: string,
+  cardInfo: Card,
 }
 
 function KanbanCard(props: Props) {
   const [isEditing, setIsEditing] = useState<boolean>(false)
 
   return (
-    <Card className={props.className} onClick={() => setIsEditing(true)}>
+    <Container className={props.className} onClick={() => setIsEditing(true)}>
       <Title as="p" visibleLines={isEditing ? undefined : 2} onClick={() => {console.log('helloooo')}}>
-        이것은 태스크명입니다.<br />
-        태스크명 두줄<br />
-        태스크명 세줄
+        {props.cardInfo.title}
       </Title>
 
       <div>
         <Property>
-          2021.12.22 까지
+          {props.cardInfo.endDate.toString()} 까지
         </Property>
       </div>
 
@@ -35,10 +35,14 @@ function KanbanCard(props: Props) {
           매니저
         </Property>
 
-        <NameTag
-          color='pink'
-          tagName='신지민'
-        />
+        {props.cardInfo.manager.map(participantUser =>
+          <NameTag
+            key={'mngr' + participantUser.participantId}
+            color={participantUser.color}
+            tagName={participantUser.user.name}
+          />
+        )}
+        
       </PropertyRow>
 
       <PropertyRow>
@@ -46,29 +50,19 @@ function KanbanCard(props: Props) {
           수행자
         </Property>
 
-        <NameTag
-          color='pink'
-          tagName='신지민'
-        />
-
-        <NameTag
-          color='#DFBAF5'
-          tagName='박종민'
-        />
-
-        <NameTag
-          color='#CAEBCE'
-          tagName='주권일'
-        />
+        {props.cardInfo.assign.map(participantUser =>
+          <NameTag
+            key={'asgn' + participantUser.participantId}
+            color={participantUser.color}
+            tagName={participantUser.user.name}
+          />
+        )}
       </PropertyRow>
 
       <Detail visibleLines={isEditing ? undefined : 2}>
-        태스크에 대한 설명입니다.<br />
-        칸반보드 카드 만들기<br />
-        칸반보드 카드 만들기<br />
-        칸반보드 카드 만들기<br />
+        {props.cardInfo.detail}
       </Detail>
-    </Card>
+    </Container>
   )
 }
 

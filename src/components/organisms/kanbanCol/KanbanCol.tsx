@@ -1,15 +1,18 @@
 import { IMAGES } from 'constants/images'
+import { Card } from 'constants/types'
 import React from 'react'
 import {
   Column,
   StatusRow,
   Status,
   AddBtn,
-  Card
+  WrappedCard,
+  Icon
 } from './styles'
 
 interface Props {
   status?: string,
+  cards: Card[],
 }
 
 function KanbanCol(props: Props) {
@@ -18,13 +21,11 @@ function KanbanCol(props: Props) {
       <StatusRow>
         <Status>{props.status || ''}</Status>
         <AddBtn>
-          {/* <img src={IMAGES.add} /> */}
+          <Icon src={IMAGES.add} />
         </AddBtn>
       </StatusRow>
 
-      <Card />
-      <Card />
-      <Card />
+      {props.cards.map(card => <WrappedCard key={card.cardID} cardInfo={card} />)}
     </Column>
   )
 }

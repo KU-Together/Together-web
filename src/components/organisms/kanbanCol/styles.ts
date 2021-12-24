@@ -4,30 +4,36 @@ import KanbanCard from 'components/molecules/kanbanCard/KanbanCard'
 export const Column = styled.div`
     display: flex;
     flex-direction: column;
+    padding-left: 25px;
+    padding-right: 25px;
   `
 
 export const StatusRow = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 30px;
     margin-bottom: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
   `
 
 export const Status = styled.span`
     font-size: medium;
     font-weight: bold;
+    flex: 1;
   `
 
-export const Card = styled(KanbanCard)`
+export const WrappedCard = styled(KanbanCard)`
     margin-top: 6px;
     margin-bottom: 6px;
-    margin-left: 25px;
-    margin-right: 25px;
   `
 
 export const AddBtn = styled.div`
-    width: 22px;
-    height: 22px;
-    background-color: pink;
+    width: 20px;
+    height: 20px;
   `
+
+export const Icon = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+`
