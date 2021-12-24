@@ -3,7 +3,11 @@ import { IMAGES } from 'constants/images'
 import React from 'react'
 import styled from 'styled-components'
 
-function KanbanCol() {
+interface Props {
+  status?: string,
+}
+
+function KanbanCol(props: Props) {
   const Column = styled.div`
     display: flex;
     flex-direction: column;
@@ -38,7 +42,7 @@ function KanbanCol() {
   return (
     <Column>
       <StatusRow>
-        <Status>To Do</Status>
+        <Status>{props.status || ''}</Status>
         <AddBtn>
           {/* <img src={IMAGES.add} /> */}
         </AddBtn>

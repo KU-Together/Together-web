@@ -1,3 +1,4 @@
+import Tag from 'components/atoms/Tag'
 import KanbanCol from 'components/organisms/KanbanCol'
 import React from 'react'
 import styled from 'styled-components'
@@ -15,9 +16,9 @@ function MainPage() {
   return (
     <Container>
       <KanbanBoard>
-        <KanbanCol />
-        <KanbanCol />
-        <KanbanCol />
+        <KanbanCol status='To Do'/>
+        <KanbanCol status='In Progress' />
+        <KanbanCol status='Wait for Review' />
       </KanbanBoard>
     </Container>
   )

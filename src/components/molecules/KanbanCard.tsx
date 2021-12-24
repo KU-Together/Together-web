@@ -1,38 +1,62 @@
+import { Bold } from 'styles/typography'
 import Tag from 'components/atoms/Tag'
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import styled, { css } from 'styled-components'
 
 interface Props {
   className?: string,
 }
 
-function KanbanCard(props: Props) {
-  const Card = styled.div`
+const hoverCursor =  css`
+  &:hover {
+    cursor: grab;
+  }
+`
+
+const Card = styled.div`
+    ${hoverCursor}
     display: inline-block;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     width: 350px;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.29);
   `
 
-  const Title = styled.p`
-    font-weight: bold;
+interface Title {
+  visibleLines?: number,
+}
+
+const Title = styled(Bold)<Title>`
     font-size: medium;
     margin: 0;
     padding: 0;
+    -webkit-line-clamp: ${props => props.visibleLines};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
   `
 
-  const Property = styled.span`
+const Property = styled.span`
     font-size: small;
   `
 
-  const Detail = styled.p`
+interface Detail {
+  visibleLines?: number
+}
+
+const Detail = styled.p<Detail>`
     font-size: medium;
-    margin: 0;
+    margin: 15px 0 0 0;
     padding: 0;
+    -webkit-line-clamp: ${props => props.visibleLines};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
   `
 
-  const PropertyRow = styled.div`
+const PropertyRow = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -41,14 +65,21 @@ function KanbanCard(props: Props) {
     margin-bottom: 3px;
   `
 
-  const NameTag = styled(Tag)`
+const NameTag = styled(Tag)`
     margin-left: 3px;
     margin-right: 3px;
   `
 
+function KanbanCard(props: Props) {
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+
   return (
-    <Card className={props.className}>
-      <Title>이것은 태스크명입니다.<br />태스크명 두줄</Title>
+    <Card className={props.className} onClick={() => setIsEditing(true)}>
+      <Title as="p" visibleLines={isEditing ? undefined : 2}>
+        이것은 태스크명입니다.<br />
+        태스크명 두줄<br />
+        태스크명 세줄
+      </Title>
 
       <div>
         <Property>
@@ -88,10 +119,12 @@ function KanbanCard(props: Props) {
         />
       </PropertyRow>
 
-      {/* <Detail>
+      <Detail visibleLines={isEditing ? undefined : 2}>
         태스크에 대한 설명입니다.<br />
-        칸반보드 카드 만들기
-      </Detail> */}
+        칸반보드 카드 만들기<br />
+        칸반보드 카드 만들기<br />
+        칸반보드 카드 만들기<br />
+      </Detail>
     </Card>
   )
 }
