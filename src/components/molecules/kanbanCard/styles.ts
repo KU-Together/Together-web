@@ -30,6 +30,7 @@ export const Title = styled(Bold) <Title>`
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    white-space: pre-line;
   `
 
 export const Property = styled.span`
@@ -49,6 +50,7 @@ export const Detail = styled.p<Detail>`
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    white-space: pre-line;
   `
 
 export const PropertyRow = styled.div`
