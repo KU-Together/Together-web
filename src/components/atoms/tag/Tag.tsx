@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Container } from './styles'
 
 interface Props {
   tagName?: string,
@@ -8,18 +9,10 @@ interface Props {
 }
 
 function Tag(props: Props) {
-  const Tag = styled.div`
-    display: inline-block;
-    background-color: ${props.color || 'pink'};
-    padding: 3px 5px 3px 5px;
-    border-radius: 3px;
-    font-size: small;
-  `
-
   return (
-    <Tag className={props.className}>
+    <Container className={props.className} color={props.color}>
       {props.tagName || '태그'}
-    </Tag>
+    </Container>
   )
 }
 

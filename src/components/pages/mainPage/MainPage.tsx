@@ -1,18 +1,12 @@
-import Tag from 'components/atoms/Tag'
-import KanbanCol from 'components/organisms/KanbanCol'
+import Tag from 'components/atoms/tag/Tag'
+import KanbanCol from 'components/organisms/kanbanCol/KanbanCol'
 import React from 'react'
-import styled from 'styled-components'
+import {
+  Container,
+  KanbanBoard
+} from './styles'
 
 function MainPage() {
-  const Container = styled.div`
-    padding: 100px;  
-  `
-
-  const KanbanBoard = styled.div`
-    display: flex;
-    flex-direction: row;
-  `
-
   return (
     <Container>
       <KanbanBoard>
