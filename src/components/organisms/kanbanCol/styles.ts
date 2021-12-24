@@ -31,6 +31,9 @@ export const WrappedCard = styled(KanbanCard)`
 export const AddBtn = styled.div`
     width: 20px;
     height: 20px;
+    &:hover {
+      cursor: grab;
+    }
   `
 
 export const Icon = styled.img`

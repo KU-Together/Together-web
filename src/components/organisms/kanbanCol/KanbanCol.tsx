@@ -13,6 +13,7 @@ import {
 interface Props {
   status?: string,
   cards: Card[],
+  insertACard: () => void,
 }
 
 function KanbanCol(props: Props) {
@@ -20,7 +21,7 @@ function KanbanCol(props: Props) {
     <Column>
       <StatusRow>
         <Status>{props.status || ''}</Status>
-        <AddBtn>
+        <AddBtn onClick={props.insertACard}>
           <Icon src={IMAGES.add} />
         </AddBtn>
       </StatusRow>
