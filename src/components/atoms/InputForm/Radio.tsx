@@ -12,7 +12,6 @@ const Radio= (props:RadioProps) => {
             <input  
               type="radio"
               name="major"
-              
               value={props.value}
               id={props.id}
               onChange={radioHandler}

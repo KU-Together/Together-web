@@ -8,13 +8,14 @@ type InfoProps={
   name:string
   id:string
   onChange:any
+  //onChange ->?
   placeholder?:string
   className?:string
 }
 
 const Inputinfo= (props:InfoProps) => {
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>)=> { //이거 왜 여기있냐??????????????????? 확인
     const newValue = e.target.value;
  }
 
