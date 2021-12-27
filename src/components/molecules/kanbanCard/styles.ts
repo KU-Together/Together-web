@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { Bold } from 'styles/typography'
+import { bold } from 'styles/typography'
 import Tag from 'components/atoms/tag/Tag'
 
 export const hoverCursor = css`
@@ -21,7 +21,8 @@ interface Title {
   visibleLines?: number,
 }
 
-export const Title = styled(Bold) <Title>`
+export const Title = styled.input<Title>`
+    ${bold}
     font-size: medium;
     margin: 0;
     padding: 0;
@@ -41,7 +42,7 @@ interface Detail {
   visibleLines?: number
 }
 
-export const Detail = styled.p<Detail>`
+export const Detail = styled.input<Detail>`
     font-size: medium;
     margin: 15px 0 0 0;
     padding: 0;

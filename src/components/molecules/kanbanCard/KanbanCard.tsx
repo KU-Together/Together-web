@@ -20,9 +20,10 @@ function KanbanCard(props: Props) {
 
   return (
     <Container className={props.className} onClick={() => setIsEditing(true)}>
-      <Title as="p" visibleLines={isEditing ? undefined : 2} onClick={() => {console.log('helloooo')}}>
-        {props.cardInfo.title}
-      </Title>
+      <Title 
+        value={props.cardInfo.title}
+        readOnly={isEditing ? false : true}
+      />
 
       <div>
         <Property>
@@ -59,9 +60,10 @@ function KanbanCard(props: Props) {
         )}
       </PropertyRow>
 
-      <Detail visibleLines={isEditing ? undefined : 2}>
-        {props.cardInfo.detail}
-      </Detail>
+      <Detail
+        value={props.cardInfo.detail}
+        readOnly={isEditing ? false : true}
+      />
     </Container>
   )
 }
