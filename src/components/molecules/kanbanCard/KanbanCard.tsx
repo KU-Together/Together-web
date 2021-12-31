@@ -8,7 +8,7 @@ import {
   PropertyRow,
   NameTag,
   Detail
-} from './styles'
+} from './KanbanCardStyles'
 
 interface Props {
   className?: string,
