@@ -14,7 +14,7 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage />}>
+          <Route path="/" element={<IndexPage />}>
             <Route path="main" element={<MainPage />} />
             <Route path="sign-up" element={<SignUpPage />} />
             <Route path="*" element={<NotFoundPage />} />
