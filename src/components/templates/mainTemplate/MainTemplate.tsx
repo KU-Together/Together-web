@@ -3,10 +3,7 @@ import {
   Container,
   KanbanBoard
 } from './MainTemplateStyles'
-import { cardData } from 'assets/data/sampleData'
-import Tag from 'components/atoms/tag/Tag'
 import KanbanCol from 'components/organisms/kanbanCol/KanbanCol'
-import { Card } from 'constants/types'
 
 function MainTemplate() {
   return (

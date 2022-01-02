@@ -1,5 +1,4 @@
 import { IMAGES } from 'constants/images'
-import { Card } from 'constants/types'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import React from 'react'
 import { add } from 'slices/cardSlice'

@@ -23,10 +23,7 @@ const cardsSlice = createSlice({
     update: (state, action: PayloadAction<Card>) => {
       const cardId = action.payload.cardId
       const idx = state.findIndex((elem) => elem.cardId === cardId)
-      state[idx] = {
-        ...state[idx],
-        ...action.payload
-      }
+      state[idx] = {...action.payload}
     },
     add: {
       reducer: (state, action: PayloadAction<Card[]>) => {
@@ -34,6 +31,7 @@ const cardsSlice = createSlice({
           state.unshift({
             ...card,
             cardId: nanoid(),
+            endDate: new Date(),
           })
         }
       },

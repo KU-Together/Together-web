@@ -1,9 +1,7 @@
 import { Card } from 'constants/types'
 import { useAppDispatch } from 'hooks'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { update } from 'slices/cardSlice'
-import styled, { css } from 'styled-components'
 import {
   Container,
   Title,
@@ -24,7 +22,6 @@ function KanbanCard(props: Props) {
   const [detail, setDetail] = useState(props.cardInfo.detail)
   const dispatch = useAppDispatch()
 
-  // 이거 뭐지...?
   const saveChange = () => {
     setIsEditing(false)
     dispatch(update({
