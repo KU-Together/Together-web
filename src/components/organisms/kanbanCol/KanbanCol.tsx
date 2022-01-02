@@ -31,7 +31,7 @@ function KanbanCol(props: Props) {
       </StatusRow>
 
       {/* {props.cards.map(card => <WrappedCard key={card.cardID} cardInfo={card} />)} */}
-      {cards.map(card => <WrappedCard key={card.cardID} cardInfo={card} />)}
+      {cards.map(card => <WrappedCard key={card.cardId} cardInfo={card} />)}
     </Column>
   )
 }

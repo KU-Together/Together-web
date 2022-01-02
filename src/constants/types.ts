@@ -21,7 +21,7 @@ export type Participant = {
 export type ParticipantUser = Participant & { user: User }
 
 export type Card = {
-  cardID: CardId,
+  cardId: CardId,
   projId: ProjId,
   title: string,
   endDate: Date,
