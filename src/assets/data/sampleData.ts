@@ -38,7 +38,7 @@ export const participantData: Participant[] = [
 
 export const cardData: Card[] = [
   {
-    cardID: 'c1',
+    cardId: 'c1',
     projId: 'p1',
     title: '이것은 태스크입니다.\n태스크태스크\n태스크\n',
     endDate: new Date(),
@@ -89,7 +89,7 @@ export const cardData: Card[] = [
     detail: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
   },
   {
-    cardID: 'c2',
+    cardId: 'c2',
     projId: 'p1',
     title: '이것은 태스크입니다.\n태스크태스크\n태스크\n',
     endDate: new Date(),
@@ -140,7 +140,7 @@ export const cardData: Card[] = [
     detail: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
   },
   {
-    cardID: 'c3',
+    cardId: 'c3',
     projId: 'p1',
     title: '이것은 태스크입니다.\n태스크태스크\n태스크\n',
     endDate: new Date(),

@@ -1,6 +1,7 @@
 import { Card } from 'constants/types'
+import { useAppDispatch } from 'hooks'
 import React, { useState } from 'react'
-import styled, { css } from 'styled-components'
+import { update } from 'slices/cardSlice'
 import {
   Container,
   Title,
@@ -8,7 +9,7 @@ import {
   PropertyRow,
   NameTag,
   Detail
-} from './styles'
+} from './KanbanCardStyles'
 
 interface Props {
   className?: string,
@@ -17,11 +18,25 @@ interface Props {
 
 function KanbanCard(props: Props) {
   const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [title, setTitle] = useState(props.cardInfo.title)
+  const [detail, setDetail] = useState(props.cardInfo.detail)
+  const dispatch = useAppDispatch()
+
+  const saveChange = () => {
+    setIsEditing(false)
+    dispatch(update({
+      ...props.cardInfo,
+      title: title,
+      detail: detail
+    }))
+  }
 
   return (
     <Container className={props.className} onClick={() => setIsEditing(true)}>
+      <span onClick={() => saveChange()}>완료</span>
       <Title 
-        value={props.cardInfo.title}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         readOnly={isEditing ? false : true}
       />
 
@@ -61,7 +76,8 @@ function KanbanCard(props: Props) {
       </PropertyRow>
 
       <Detail
-        value={props.cardInfo.detail}
+        value={detail}
+        onChange={(e) => setDetail(e.target.value)}
         readOnly={isEditing ? false : true}
       />
     </Container>
