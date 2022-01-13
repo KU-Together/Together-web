@@ -19,7 +19,7 @@ interface Props {
 function KanbanCard(props: Props) {
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [title, setTitle] = useState(props.cardInfo.title)
-  const [detail, setDetail] = useState(props.cardInfo.detail)
+  const [detail, setDetail] = useState(props.cardInfo.content)
   const dispatch = useAppDispatch()
 
   const saveChange = () => {
@@ -27,7 +27,7 @@ function KanbanCard(props: Props) {
     dispatch(update({
       ...props.cardInfo,
       title: title,
-      detail: detail
+      content: detail
     }))
   }
 
@@ -42,7 +42,7 @@ function KanbanCard(props: Props) {
 
       <div>
         <Property>
-          {props.cardInfo.endDate.toString()} 까지
+          {props.cardInfo.deadline.toString()} 까지
         </Property>
       </div>
 
@@ -51,13 +51,11 @@ function KanbanCard(props: Props) {
           매니저
         </Property>
 
-        {props.cardInfo.manager.map(participantUser =>
-          <NameTag
-            key={'mngr' + participantUser.participantId}
-            color={participantUser.color}
-            tagName={participantUser.user.name}
-          />
-        )}
+        <NameTag
+          key={'mngr' + props.cardInfo.manager_id}
+          // color={participantUser.color}
+          tagName={props.cardInfo.manager_id.toString()}
+        />
         
       </PropertyRow>
 
@@ -66,11 +64,11 @@ function KanbanCard(props: Props) {
           수행자
         </Property>
 
-        {props.cardInfo.assign.map(participantUser =>
+        {props.cardInfo.assigned_users.map(participantUser =>
           <NameTag
-            key={'asgn' + participantUser.participantId}
-            color={participantUser.color}
-            tagName={participantUser.user.name}
+            key={'asgn' + participantUser}
+            // color={participantUser.color}
+            tagName={participantUser.toString()}
           />
         )}
       </PropertyRow>

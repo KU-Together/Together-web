@@ -38,11 +38,11 @@ export const participantData: Participant[] = [
 
 export const cardData: Card[] = [
   {
-    cardId: 'c1',
-    projId: 'p1',
+    id: 'c1',
+    project_id: 'p1',
     title: '이것은 태스크입니다.\n태스크태스크\n태스크\n',
-    endDate: new Date(),
-    manager: [
+    deadline: new Date(),
+    manager_id: [
       {
         participantId: 'pcps1',
         projId: 'p1',
@@ -54,7 +54,7 @@ export const cardData: Card[] = [
         }
       }
     ],
-    assign: [
+    assigned_users: [
       {
         participantId: 'pcps1',
         projId: 'p1',
@@ -86,14 +86,14 @@ export const cardData: Card[] = [
         }
       }
     ],
-    detail: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
+    content: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
   },
   {
-    cardId: 'c2',
-    projId: 'p1',
+    id: 'c2',
+    project_id: 'p1',
     title: '이것은 태스크입니다.\n태스크태스크\n태스크\n',
-    endDate: new Date(),
-    manager: [
+    deadline: new Date(),
+    manager_id: [
       {
         participantId: 'pcps1',
         projId: 'p1',
@@ -105,7 +105,7 @@ export const cardData: Card[] = [
         }
       }
     ],
-    assign: [
+    assigned_users: [
       {
         participantId: 'pcps1',
         projId: 'p1',
@@ -137,14 +137,14 @@ export const cardData: Card[] = [
         }
       }
     ],
-    detail: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
+    content: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
   },
   {
-    cardId: 'c3',
-    projId: 'p1',
+    id: 'c3',
+    project_id: 'p1',
     title: '이것은 태스크입니다.\n태스크태스크\n태스크\n',
-    endDate: new Date(),
-    manager: [
+    deadline: new Date(),
+    manager_id: [
       {
         participantId: 'pcps1',
         projId: 'p1',
@@ -156,7 +156,7 @@ export const cardData: Card[] = [
         }
       }
     ],
-    assign: [
+    assigned_users: [
       {
         participantId: 'pcps1',
         projId: 'p1',
@@ -188,6 +188,6 @@ export const cardData: Card[] = [
         }
       }
     ],
-    detail: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
+    content: '이것은 디테일입니다.\n디테일디테일디테일디테일디테일디테일\n디테일디테일디테일'
   },
 ]
