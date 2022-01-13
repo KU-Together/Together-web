@@ -1,8 +1,8 @@
-export type UserId = string
+export type UserId = number
 
-export type ProjId = string
+export type ProjId = number
 
-export type CardId = string
+export type CardId = number
 
 export type ParticipantId = string
 
@@ -21,11 +21,12 @@ export type Participant = {
 export type ParticipantUser = Participant & { user: User }
 
 export type Card = {
-  cardId: CardId,
-  projId: ProjId,
+  id: CardId,
+  project_id: ProjId,
   title: string,
-  endDate: Date,
-  manager: ParticipantUser[],
-  assign: ParticipantUser[],
-  detail: string
+  manager_id: UserId,
+  deadline: Date,
+  status: string,
+  content: string,
+  assigned_users: UserId[]
 }

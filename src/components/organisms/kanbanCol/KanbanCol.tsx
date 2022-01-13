@@ -29,7 +29,7 @@ function KanbanCol(props: Props) {
         </AddBtn>
       </StatusRow>
 
-      {cards.map(card => <WrappedCard key={card.cardId} cardInfo={card} />)}
+      {cards.map(card => <WrappedCard key={card.id} cardInfo={card} />)}
     </Column>
   )
 }

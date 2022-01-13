@@ -21,7 +21,7 @@ interface Title {
   visibleLines?: number,
 }
 
-export const Title = styled.input<Title>`
+export const Title = styled.textarea<Title>`
     ${bold}
     font-size: medium;
     margin: 0;
@@ -32,6 +32,8 @@ export const Title = styled.input<Title>`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     white-space: pre-line;
+    border: none;
+    width: 100%;
   `
 
 export const Property = styled.span`
@@ -42,7 +44,7 @@ interface Detail {
   visibleLines?: number
 }
 
-export const Detail = styled.input<Detail>`
+export const Detail = styled.textarea<Detail>`
     font-size: medium;
     margin: 15px 0 0 0;
     padding: 0;
@@ -52,6 +54,8 @@ export const Detail = styled.input<Detail>`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     white-space: pre-line;
+    border: none;
+    width: 100%;
   `
 
 export const PropertyRow = styled.div`
