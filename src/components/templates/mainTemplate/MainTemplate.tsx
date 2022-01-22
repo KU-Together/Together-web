@@ -4,8 +4,13 @@ import {
   KanbanBoard
 } from './MainTemplateStyles'
 import KanbanCol from 'components/organisms/kanbanCol/KanbanCol'
+import { Card } from 'constants/types'
 
-function MainTemplate() {
+interface Props {
+  cardData: Card[]
+}
+
+function MainTemplate(props: Props) {
   return (
     <Container>
       <KanbanBoard>
@@ -16,7 +21,7 @@ function MainTemplate() {
         /> */}
         <KanbanCol
           status='In Progress'
-        // cards={cards}
+          cards={props.cardData}
         // insertACard={() => insertACard(cards, setCards)}
         />
         {/* <KanbanCol

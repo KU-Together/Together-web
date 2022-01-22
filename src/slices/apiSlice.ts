@@ -6,7 +6,7 @@ export const togetherApi = createApi({
   reducerPath: 'togetherApi',
   baseQuery: fetchBaseQuery({ baseUrl: URLS.together }),
   endpoints: (builder) => ({
-    getAllCards: builder.query<Card, void>({
+    getAllCards: builder.query<Card[], void>({
       query: () => ({
         url: 'cards',
         method: 'GET',
