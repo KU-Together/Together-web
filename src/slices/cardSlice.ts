@@ -11,7 +11,7 @@ const defaultCard: Card = {
   title: '태스크 타이틀',
   deadline: new Date(),
   status: '진행 중',
-  manager_id: 1,
+  manager_id: [],
   assigned_users: [],
   content: '태스크 디테일'
 }
