@@ -1,9 +1,14 @@
 import MainTemplate from 'components/templates/mainTemplate/MainTemplate'
 import { useEffect } from 'react'
+import { useAppDispatch } from 'hooks'
+import { fetchAllCards } from 'slices/cardSlice'
+import { togetherApi, useGetAllCardsQuery } from 'slices/apiSlice'
 
 function MainPage() {
+  const { data, error, isLoading } = useGetAllCardsQuery()
+  console.log('data', data, 'isLoading', isLoading, 'error', error)
+  
   useEffect(() => {
-    // 리덕스 저장소에 카드 데이터 받아오기
   }, [])
 
   return (

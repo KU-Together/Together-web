@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -48,6 +49,7 @@
     "@types/styled-components": "^5.1.19",
     "babel-plugin-styled-components": "^2.0.2",
     "cross-env": "^7.0.3",
+    "miragejs": "^0.1.43",
     "styled-components": "^5.3.3"
   }
 }
