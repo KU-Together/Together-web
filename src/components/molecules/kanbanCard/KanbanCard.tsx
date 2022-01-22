@@ -2,6 +2,7 @@ import { Card } from 'constants/types'
 import { useAppDispatch } from 'hooks'
 import React, { useState } from 'react'
 import { update } from 'slices/cardSlice'
+import { formatDate } from 'utils/DateUtils'
 import {
   Container,
   Title,
@@ -42,7 +43,7 @@ function KanbanCard(props: Props) {
 
       <div>
         <Property>
-          {props.cardInfo.deadline.toString()} 까지
+          {formatDate(new Date(props.cardInfo.deadline))} 까지
         </Property>
       </div>
 
