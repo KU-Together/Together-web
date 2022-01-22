@@ -7,6 +7,7 @@ export default function makeServer({ environment = 'test' }) {
     environment,
     routes() {
       this.get(URLS.together + 'cards', () => {
+        const now = new Date()
         const res: Card[] = [
           {
             id: 1,
@@ -18,7 +19,7 @@ export default function makeServer({ environment = 'test' }) {
                 name: '신지민',
               }
             ],
-            deadline: new Date(),
+            deadline: now.toString(),
             status: '진행중',
             content: '컨텐트 타입',
             assigned_users: [

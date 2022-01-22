@@ -25,7 +25,7 @@ export type Card = {
   project_id: ProjId,
   title: string,
   manager_id: User[],
-  deadline: Date,
+  deadline: string,
   status: string,
   content: string,
   assigned_users: User[]
