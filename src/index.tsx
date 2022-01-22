@@ -8,6 +8,9 @@ import NotFoundPage from 'components/pages/NotFoundPage'
 import MainPage from 'components/pages/mainPage/MainPage'
 import { Provider } from 'react-redux'
 import { store } from 'store'
+import makeServer from 'server'
+
+makeServer({ environment: 'development'})
 
 ReactDOM.render(
   <React.StrictMode>
