@@ -24,9 +24,14 @@ export type Card = {
   id: CardId,
   project_id: ProjId,
   title: string,
-  manager_id: User[],
+  manager_id: User[] | number[],
   deadline: string,
   status: string,
   content: string,
-  assigned_users: User[]
+  assigned_users: User[] | number[],
+}
+
+export type ResponseResult = {
+  code: number,
+  error?: string,
 }
