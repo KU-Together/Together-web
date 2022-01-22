@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { cardData } from 'assets/data/sampleData'
 import { Card, CardId } from 'constants/types'
 import { RootState } from 'store'
-import { nanoid } from '@reduxjs/toolkit'
 import { URLS } from 'constants/urls'
 
 const initialState: Card[] = []
@@ -41,11 +39,11 @@ const cardsSlice = createSlice({
     },
     fetchAllCards: () => {
       const response = fetch(URLS.together + 'api/cards')
-      
+      console.log()
     }
   }
 })
 
-export const { update, add } = cardsSlice.actions
+export const { update, add, fetchAllCards } = cardsSlice.actions
 export const selectCards = (state: RootState) => state.cards
 export default cardsSlice.reducer
