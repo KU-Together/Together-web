@@ -1,4 +1,5 @@
 import { IMAGES } from 'constants/images'
+import { Card } from 'constants/types'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import React from 'react'
 import { add } from 'slices/cardSlice'
@@ -13,23 +14,22 @@ import {
 
 interface Props {
   status?: string,
+  cards: Card[],
 }
 
 function KanbanCol(props: Props) {
-  const cards = useAppSelector(state => state.cards)
-  const dispatch = useAppDispatch()
-
   return (
     <Column>
       <StatusRow>
         <Status>{props.status || ''}</Status>
 
-        <AddBtn onClick={() => dispatch(add())}>
+        {/* <AddBtn onClick={() => dispatch(add())}> */}
+        <AddBtn>
           <Icon src={IMAGES.add} />
         </AddBtn>
       </StatusRow>
 
-      {cards.map(card => <WrappedCard key={card.id} cardInfo={card} />)}
+      {props.cards.map(card => <WrappedCard key={card.id} cardInfo={card} />)}
     </Column>
   )
 }

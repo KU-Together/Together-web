@@ -12,7 +12,9 @@ function MainPage() {
   }, [])
 
   return (
-    <MainTemplate />
+    <MainTemplate
+      cardData={data || []}
+    />
   )
 }
 

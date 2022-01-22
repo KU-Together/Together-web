@@ -51,11 +51,13 @@ function KanbanCard(props: Props) {
           매니저
         </Property>
 
-        <NameTag
-          key={'mngr' + props.cardInfo.manager_id}
-          // color={participantUser.color}
-          tagName={props.cardInfo.manager_id.toString()}
-        />
+        {props.cardInfo.manager_id.map(user => 
+          <NameTag
+            key={'mngr' + user.userId}
+            // color={participantUser.color}
+            tagName={user.name}
+          />  
+        )}
         
       </PropertyRow>
 
@@ -68,7 +70,7 @@ function KanbanCard(props: Props) {
           <NameTag
             key={'asgn' + participantUser}
             // color={participantUser.color}
-            tagName={participantUser.toString()}
+            tagName={participantUser.name}
           />
         )}
       </PropertyRow>
