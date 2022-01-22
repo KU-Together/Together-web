@@ -6,6 +6,7 @@ import { togetherApi, useGetAllCardsQuery } from 'slices/apiSlice'
 
 function MainPage() {
   const { data, error, isLoading } = useGetAllCardsQuery()
+  console.log('data', data, 'error', error, 'isLoading')
   
   useEffect(() => {
   }, [])

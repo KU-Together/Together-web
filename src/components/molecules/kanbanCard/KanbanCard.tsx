@@ -1,4 +1,4 @@
-import { Card } from 'constants/types'
+import { Card, User } from 'constants/types'
 import { useAppDispatch } from 'hooks'
 import React, { useState } from 'react'
 import { update } from 'slices/cardSlice'

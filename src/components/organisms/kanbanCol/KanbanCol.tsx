@@ -2,6 +2,7 @@ import { IMAGES } from 'constants/images'
 import { Card } from 'constants/types'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import React from 'react'
+import { useAddNewCardMutation } from 'slices/apiSlice'
 import { add } from 'slices/cardSlice'
 import {
   Column,
@@ -18,13 +19,21 @@ interface Props {
 }
 
 function KanbanCol(props: Props) {
+  const [addNewCard, { isLoading }] = useAddNewCardMutation()
+
   return (
     <Column>
       <StatusRow>
         <Status>{props.status || ''}</Status>
 
-        {/* <AddBtn onClick={() => dispatch(add())}> */}
-        <AddBtn>
+        <AddBtn onClick={() => addNewCard({
+          project_id: 1,
+          title: '',
+          manager_id: [1],
+          status: '1',
+          content: '',
+          assigned_users: []
+        })}>
           <Icon src={IMAGES.add} />
         </AddBtn>
       </StatusRow>
