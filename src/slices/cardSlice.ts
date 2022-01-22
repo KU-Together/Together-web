@@ -5,11 +5,13 @@ import { URLS } from 'constants/urls'
 
 const initialState: Card[] = []
 
+const now = new Date()
+
 const defaultCard: Card = {
   id: 0,
   project_id: 1,
   title: '태스크 타이틀',
-  deadline: new Date(),
+  deadline: now.toString(),
   status: '진행 중',
   manager_id: [],
   assigned_users: [],
@@ -31,7 +33,7 @@ const cardsSlice = createSlice({
           state.unshift({
             ...card,
             id: 1,
-            deadline: new Date(),
+            deadline: now.toString(),
           })
         }
       },
