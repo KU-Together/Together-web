@@ -6,7 +6,7 @@ export default function makeServer({ environment = 'test' }) {
   return createServer({
     environment,
     routes() {
-      this.get(URLS.together + 'cards', () => {
+      this.get(URLS.together + '/cards', () => {
         const now = new Date()
         const res: Card[] = [
           {

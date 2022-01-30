@@ -6,7 +6,7 @@ export type CardId = number
 
 export type ParticipantId = string
 
-export type User = {
+export interface User {
   userId: UserId,
   name: string,
 }
@@ -20,7 +20,7 @@ export type Participant = {
 
 export type ParticipantUser = Participant & { user: User }
 
-export type Card = {
+export interface Card {
   id: CardId,
   project_id: ProjId,
   title: string,
