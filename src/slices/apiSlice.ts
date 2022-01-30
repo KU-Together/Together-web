@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Card, ResponseResult } from 'constants/types'
 import { URLS } from 'constants/urls'
 
-export const togetherApi = createApi({
+export const cardApi = createApi({
   reducerPath: 'togetherApi',
   baseQuery: fetchBaseQuery({ baseUrl: URLS.together }),
   endpoints: (builder) => ({
@@ -17,7 +17,7 @@ export const togetherApi = createApi({
     }),
     addNewCard: builder.mutation<ResponseResult, Partial<Card>>({
       query: initialCard => ({
-        url: '/posts',
+        url: '/cards',
         method: 'POST',
         body: initialCard
       })
@@ -28,4 +28,4 @@ export const togetherApi = createApi({
 export const { 
   useGetAllCardsQuery,
   useAddNewCardMutation
-} = togetherApi
+} = cardApi
