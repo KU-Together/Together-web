@@ -52,13 +52,17 @@ function KanbanCard(props: Props) {
           매니저
         </Property>
 
-        {props.cardInfo.manager_id.map(user => 
-          <NameTag
-            key={'mngr' + user.userId}
-            // color={participantUser.color}
-            tagName={user.name}
-          />  
-        )}
+        {props.cardInfo.manager_id.map(user => {
+          if (typeof user !== "number") {
+            return (
+              <NameTag
+                key={'mngr' + user.userId}
+                // color={participantUser.color}
+                tagName={user.name}
+              />  
+            )
+          }
+        })}
         
       </PropertyRow>
 
@@ -67,13 +71,17 @@ function KanbanCard(props: Props) {
           수행자
         </Property>
 
-        {props.cardInfo.assigned_users.map(participantUser =>
-          <NameTag
-            key={'asgn' + participantUser}
-            // color={participantUser.color}
-            tagName={participantUser.name}
-          />
-        )}
+        {props.cardInfo.assigned_users.map(participantUser => {
+          if (typeof participantUser !== "number") {
+            return (
+              <NameTag
+                key={'asgn' + participantUser}
+                // color={participantUser.color}
+                tagName={participantUser.name}
+              />
+            )
+          }
+        })}
       </PropertyRow>
 
       <Detail
