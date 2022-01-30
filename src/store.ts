@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { togetherApi } from 'slices/apiSlice'
+import { cardApi } from 'slices/apiSlice'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import cardsReducer from 'slices/cardSlice'
 
 export const store = configureStore({
   reducer: {
-    [togetherApi.reducerPath]: togetherApi.reducer,
+    [cardApi.reducerPath]: cardApi.reducer,
     cards: cardsReducer
   },
   middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().concat(togetherApi.middleware)
+    getDefaultMiddleware().concat(cardApi.middleware)
 })
 
 setupListeners(store.dispatch)
