@@ -3,14 +3,7 @@ import { useAppDispatch } from "hooks";
 import React, { useState } from "react";
 import { update } from "slices/cardSlice";
 import { formatDate } from "utils/DateUtils";
-import {
-  Container,
-  Title,
-  Property,
-  PropertyRow,
-  NameTag,
-  Detail,
-} from "./KanbanCardStyles";
+import Style from "./KanbanCardStyles";
 
 interface Props {
   className?: string;
@@ -35,34 +28,30 @@ function KanbanCard(props: Props) {
   };
 
   return (
-    <Container
+    <Style.Container
       className={props.className}
       onClick={() => setIsEditing(true)}
-      onBlurCapture={() => {
-        console.log("hihi");
-        console.log("title", title, "detail", detail);
-        saveChange();
-      }}
+      onBlurCapture={() => saveChange()}
     >
-      <Title
+      <Style.Title
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         readOnly={isEditing ? false : true}
       />
 
       <div>
-        <Property>
+        <Style.Property onClick={() => console.log("hello")}>
           {formatDate(new Date(props.cardInfo.deadline))} 까지
-        </Property>
+        </Style.Property>
       </div>
 
-      <PropertyRow>
-        <Property>매니저</Property>
+      <Style.PropertyRow>
+        <Style.Property>매니저</Style.Property>
 
         {props.cardInfo.manager_id.map((user) => {
           if (typeof user !== "number") {
             return (
-              <NameTag
+              <Style.NameTag
                 key={"mngr" + user.userId}
                 // color={participantUser.color}
                 tagName={user.name}
@@ -70,15 +59,15 @@ function KanbanCard(props: Props) {
             );
           }
         })}
-      </PropertyRow>
+      </Style.PropertyRow>
 
-      <PropertyRow>
-        <Property>수행자</Property>
+      <Style.PropertyRow>
+        <Style.Property>수행자</Style.Property>
 
         {props.cardInfo.assigned_users.map((participantUser) => {
           if (typeof participantUser !== "number") {
             return (
-              <NameTag
+              <Style.NameTag
                 key={"asgn" + participantUser}
                 // color={participantUser.color}
                 tagName={participantUser.name}
@@ -86,14 +75,14 @@ function KanbanCard(props: Props) {
             );
           }
         })}
-      </PropertyRow>
+      </Style.PropertyRow>
 
-      <Detail
+      <Style.Detail
         value={detail}
         onChange={(e) => setDetail(e.target.value)}
         readOnly={isEditing ? false : true}
       />
-    </Container>
+    </Style.Container>
   );
 }
 

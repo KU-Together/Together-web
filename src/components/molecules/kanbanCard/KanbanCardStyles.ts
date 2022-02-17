@@ -1,73 +1,83 @@
-import styled, { css } from 'styled-components'
-import { bold } from 'styles/typography'
-import Tag from 'components/atoms/tag/Tag'
+import styled, { css } from "styled-components";
+import { bold } from "styles/typography";
+import Tag from "components/atoms/tag/Tag";
 
-export const hoverCursor = css`
+const hoverCursor = css`
   &:hover {
     cursor: grab;
   }
-`
+`;
 
-export const Container = styled.div`
-    ${hoverCursor}
-    display: inline-block;
-    padding: 15px;
-    border-radius: 10px;
-    width: 350px;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.29);
-  `
+const Container = styled.div`
+  ${hoverCursor}
+  display: inline-block;
+  padding: 15px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.29);
+`;
 
-interface Title {
-  visibleLines?: number,
+interface TitleProps {
+  visibleLines?: number;
 }
 
-export const Title = styled.textarea<Title>`
-    ${bold}
-    font-size: medium;
-    margin: 0;
-    padding: 0;
-    -webkit-line-clamp: ${props => props.visibleLines};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    white-space: pre-line;
-    border: none;
-    width: 100%;
-  `
+const Title = styled.textarea<TitleProps>`
+  ${bold}
+  font-size: medium;
+  margin: 0;
+  padding: 0;
+  -webkit-line-clamp: ${(props) => props.visibleLines};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: pre-line;
+  border: none;
+  width: 100%;
+`;
 
-export const Property = styled.span`
-    font-size: small;
-  `
+const Property = styled.span`
+  font-size: small;
+`;
 
-interface Detail {
-  visibleLines?: number
+interface DetailProps {
+  visibleLines?: number;
 }
 
-export const Detail = styled.textarea<Detail>`
-    font-size: medium;
-    margin: 15px 0 0 0;
-    padding: 0;
-    -webkit-line-clamp: ${props => props.visibleLines};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    white-space: pre-line;
-    border: none;
-    width: 100%;
-  `
+const Detail = styled.textarea<DetailProps>`
+  font-size: medium;
+  margin: 15px 0 0 0;
+  padding: 0;
+  -webkit-line-clamp: ${(props) => props.visibleLines};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: pre-line;
+  border: none;
+  width: 100%;
+`;
 
-export const PropertyRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 3px;
-    margin-bottom: 3px;
-  `
+const PropertyRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
+`;
 
-export const NameTag = styled(Tag)`
-    margin-left: 3px;
-    margin-right: 3px;
-  `
+const NameTag = styled(Tag)`
+  margin-left: 3px;
+  margin-right: 3px;
+`;
+
+export default {
+  hoverCursor,
+  Container,
+  Title,
+  Property,
+  Detail,
+  PropertyRow,
+  NameTag,
+};
