@@ -1,18 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { togetherApi } from 'slices/apiSlice'
-import { setupListeners } from '@reduxjs/toolkit/query'
-import cardsReducer from 'slices/cardSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import cardsReducer from "slices/cardSlice";
 
 export const store = configureStore({
   reducer: {
-    [togetherApi.reducerPath]: togetherApi.reducer,
-    cards: cardsReducer
+    cards: cardsReducer,
   },
-  middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().concat(togetherApi.middleware)
-})
+});
 
-setupListeners(store.dispatch)
+setupListeners(store.dispatch);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
