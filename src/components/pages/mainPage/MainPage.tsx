@@ -1,21 +1,20 @@
-import MainTemplate from 'components/templates/mainTemplate/MainTemplate'
-import { useEffect } from 'react'
-import { useAppDispatch } from 'hooks'
-import { fetchAllCards } from 'slices/cardSlice'
-import { cardApi, useGetAllCardsQuery } from 'slices/apiSlice'
+import MainTemplate from "components/templates/mainTemplate/MainTemplate";
+import { useEffect } from "react";
+import { useAppDispatch } from "hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllCards, selectCards } from "slices/cardSlice";
+import { store } from "store";
 
 function MainPage() {
-  const { data, error, isLoading } = useGetAllCardsQuery()
-  console.log('data', data, 'error', error, 'isLoading')
-  
-  useEffect(() => {
-  }, [])
+  const cards = selectCards(store.getState());
+  const dispatch = useDispatch();
+  console.log(cards);
 
-  return (
-    <MainTemplate
-      cardData={data || []}
-    />
-  )
+  useEffect(() => {
+    dispatch(fetchAllCards());
+  }, []);
+
+  return <MainTemplate cardData={cards} />;
 }
 
-export default MainPage
+export default MainPage;
