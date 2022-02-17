@@ -1,8 +1,9 @@
 import { IMAGES } from "constants/images";
 import { Card } from "constants/types";
-import { useAppDispatch, useAppSelector } from "hooks";
 import React from "react";
-import { add } from "slices/cardSlice";
+import { formatDate } from "utils/DateUtils";
+import { useDispatch } from "react-redux";
+import { createCard } from "slices/cardSlice";
 import {
   Column,
   StatusRow,
@@ -12,23 +13,34 @@ import {
   Icon,
 } from "./KanbanStyles";
 
-interface Props {
-  status?: string;
-  cards: Card[];
-}
+const projectId = "a7b69446-0954-4906-96ee-815627841ce2";
 
-function KanbanCol(props: Props) {
+function KanbanCol({ status, cards }: { status: string; cards: Card[] }) {
+  const dispatch = useDispatch();
+
   return (
     <Column>
       <StatusRow>
-        <Status>{props.status || ""}</Status>
+        <Status>{status || ""}</Status>
 
-        <AddBtn onClick={() => console.log("click!")}>
+        <AddBtn
+          onClick={() => {
+            dispatch(
+              createCard({
+                project_id: projectId,
+                title: "제목",
+                deadline: formatDate(new Date()),
+                status: status,
+                content: "컨텐트",
+              })
+            );
+          }}
+        >
           <Icon src={IMAGES.add} />
         </AddBtn>
       </StatusRow>
 
-      {props.cards.map((card) => (
+      {cards.map((card) => (
         <WrappedCard key={card.id} cardInfo={card} />
       ))}
     </Column>

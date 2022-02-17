@@ -1,5 +1,5 @@
 import { Card, User } from "constants/types";
-import { useAppDispatch } from "hooks";
+import { useAppDispatch } from "hooks/reduxHooks";
 import React, { useState } from "react";
 import { update } from "slices/cardSlice";
 import { formatDate } from "utils/DateUtils";
@@ -50,7 +50,7 @@ function KanbanCard(props: Props) {
         </Style.Property>
       </div>
 
-      <Style.PropertyRow>
+      {/* <Style.PropertyRow>
         <Style.Property>매니저</Style.Property>
 
         {props.cardInfo.manager_id.map((user) => {
@@ -64,12 +64,12 @@ function KanbanCard(props: Props) {
             );
           }
         })}
-      </Style.PropertyRow>
+      </Style.PropertyRow> */}
 
       <Style.PropertyRow>
         <Style.Property>수행자</Style.Property>
 
-        {props.cardInfo.assigned_users.map((participantUser) => {
+        {props.cardInfo.user.map((participantUser) => {
           if (typeof participantUser !== "number") {
             return (
               <Style.NameTag
