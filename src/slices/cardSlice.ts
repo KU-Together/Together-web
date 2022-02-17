@@ -23,7 +23,6 @@ const cardsSlice = createSlice({
   initialState,
   reducers: {
     update: (state, action: PayloadAction<Card>) => {
-      console.log("update action", action);
       const cardId = action.payload.id;
       const idx = state.findIndex((elem) => elem.id === cardId);
       state[idx] = { ...action.payload };
