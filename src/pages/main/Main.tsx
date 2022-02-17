@@ -8,7 +8,6 @@ import KanbanCol from "components/kanbanCol/KanbanCol";
 function Main() {
   const cards = selectCards(store.getState());
   const dispatch = useDispatch();
-  console.log(cards);
 
   useEffect(() => {
     dispatch(fetchAllCards());

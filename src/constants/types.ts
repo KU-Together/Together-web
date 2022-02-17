@@ -1,6 +1,6 @@
 export type UserId = number;
 
-export type ProjId = number;
+export type ProjectId = string;
 
 export type CardId = number;
 
@@ -13,7 +13,7 @@ export interface User {
 
 export type Participant = {
   participantId: ParticipantId;
-  projId: ProjId;
+  projId: ProjectId;
   userId: UserId;
   color: string;
 };
@@ -22,13 +22,12 @@ export type ParticipantUser = Participant & { user: User };
 
 export interface Card {
   id: CardId;
-  project_id: ProjId;
+  project_id: ProjectId;
   title: string;
-  manager_id: User[] | number[];
   deadline: string;
   status: string;
   content: string;
-  assigned_users: User[] | number[];
+  user: User[] | number[];
 }
 
 export type ResponseResult = {

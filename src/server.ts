@@ -10,18 +10,12 @@ export default function makeServer({ environment = "test" }) {
       const cards: Card[] = [
         {
           id: 1,
-          project_id: 1,
+          project_id: "1",
           title: "테스트중입니다",
-          manager_id: [
-            {
-              userId: 1,
-              name: "신지민",
-            },
-          ],
           deadline: now.toString(),
           status: "진행중",
           content: "컨텐트 타입",
-          assigned_users: [
+          user: [
             {
               userId: 2,
               name: "주권일",
