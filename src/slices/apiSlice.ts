@@ -3,24 +3,31 @@ import { Card, ResponseResult } from 'constants/types'
 import { URLS } from 'constants/urls'
 
 export const cardApi = createApi({
-  reducerPath: 'togetherApi',
+  reducerPath: 'cardsApi',
   baseQuery: fetchBaseQuery({ baseUrl: URLS.together }),
+  tagTypes: ['Cards'],
   endpoints: (builder) => ({
     getAllCards: builder.query<Card[], void>({
-      query: () => ({
-        url: '/cards',
-        method: 'GET',
-        headers: {
-          'accept': 'application/json'
-        }
+      query: () => '/cards',
+      providesTags: (result) =>
+        result
+          ?
+            [
+              ...result.map(({ id }) => ({ type: 'Cards', id } as const)),
+              { type: 'Cards', id: 'LIST' },
+            ]
+          :
+            [{ type: 'Cards', id: 'LIST' }],
       }),
-    }),
     addNewCard: builder.mutation<ResponseResult, Partial<Card>>({
-      query: initialCard => ({
-        url: '/cards',
-        method: 'POST',
-        body: initialCard
-      })
+      query: (body) => {
+        return {
+          url: '/cards',
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: [{ type: 'Cards', id: 'LIST' }],
     })
   }),
 })
