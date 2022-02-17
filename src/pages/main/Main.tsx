@@ -1,11 +1,11 @@
-import MainTemplate from "components/templates/mainTemplate/MainTemplate";
 import { useEffect } from "react";
-import { useAppDispatch } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCards, selectCards } from "slices/cardSlice";
 import { store } from "store";
+import Style from "./Main.style";
+import KanbanCol from "components/kanbanCol/KanbanCol";
 
-function MainPage() {
+function Main() {
   const cards = selectCards(store.getState());
   const dispatch = useDispatch();
   console.log(cards);
@@ -14,7 +14,13 @@ function MainPage() {
     dispatch(fetchAllCards());
   }, []);
 
-  return <MainTemplate cardData={cards} />;
+  return (
+    <Style.Container>
+      <Style.KanbanBoard>
+        <KanbanCol status="In Progress" cards={cards} />
+      </Style.KanbanBoard>
+    </Style.Container>
+  );
 }
 
-export default MainPage;
+export default Main;

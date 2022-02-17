@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { bold } from "styles/typography";
-import Tag from "components/atoms/tag/Tag";
+import Tag from "components/tag/Tag";
 
 const hoverCursor = css`
   &:hover {
