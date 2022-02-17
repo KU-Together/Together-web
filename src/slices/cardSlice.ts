@@ -1,9 +1,17 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Card, CardId } from "constants/types";
 import { RootState } from "store";
 import { URLS } from "constants/urls";
 
-const initialState: Card[] = [];
+interface CardsState {
+  state: "";
+  value: Card[];
+}
+
+const initialState: CardsState = {
+  state: "",
+  value: [],
+};
 
 const now = new Date();
 
@@ -18,19 +26,27 @@ const defaultCard: Card = {
   content: "태스크 디테일",
 };
 
+export const fetchAllCards = createAsyncThunk(
+  "card/fetchAll",
+  async (): Promise<Card[]> => {
+    const response = await fetch(URLS.together + "card");
+    return response.json();
+  }
+);
+
 const cardsSlice = createSlice({
   name: "cards",
   initialState,
   reducers: {
     update: (state, action: PayloadAction<Card>) => {
       const cardId = action.payload.id;
-      const idx = state.findIndex((elem) => elem.id === cardId);
-      state[idx] = { ...action.payload };
+      const idx = state.value.findIndex((elem) => elem.id === cardId);
+      state.value[idx] = { ...action.payload };
     },
     add: {
       reducer: (state, action: PayloadAction<Card[]>) => {
         for (let card of action.payload) {
-          state.unshift({
+          state.value.unshift({
             ...card,
             id: 1,
             deadline: now.toString(),
@@ -39,13 +55,14 @@ const cardsSlice = createSlice({
       },
       prepare: (value?: Card[]) => ({ payload: value || [defaultCard] }),
     },
-    fetchAllCards: () => {
-      const response = fetch(URLS.together + "api/cards");
-      console.log();
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllCards.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
   },
 });
 
-export const { update, add, fetchAllCards } = cardsSlice.actions;
-export const selectCards = (state: RootState) => state.cards;
+export const { update, add } = cardsSlice.actions;
+export const selectCards = (state: RootState) => state.cards.value;
 export default cardsSlice.reducer;
