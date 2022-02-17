@@ -40,8 +40,13 @@ function KanbanCard(props: Props) {
       />
 
       <div>
-        <Style.Property onClick={() => console.log("hello")}>
-          {formatDate(new Date(props.cardInfo.deadline))} 까지
+        <Style.Property>
+          <input
+            type="date"
+            value={formatDate(new Date(props.cardInfo.deadline))}
+            onChange={(e) => console.log(e.target.value)}
+          />{" "}
+          까지
         </Style.Property>
       </div>
 
