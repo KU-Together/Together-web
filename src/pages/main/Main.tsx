@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCards, selectCards } from "slices/cardSlice";
 import Style from "./Main.style";
 import KanbanCol from "components/kanbanCol/KanbanCol";
+import { useParams } from "react-router-dom";
 
 function Main() {
   const cards = useSelector(selectCards);
   const dispatch = useDispatch();
+  const params = useParams();
 
   useEffect(() => {
     dispatch(fetchAllCards());
