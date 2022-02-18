@@ -1,7 +1,5 @@
 export type UserId = string;
 
-export type ProjectId = string;
-
 export type CardId = number;
 
 export type ParticipantId = string;
@@ -59,3 +57,16 @@ export type ResponseResult = {
   code: number;
   error?: string;
 };
+
+export type ProjectId = string;
+
+export interface Project {
+  id: string;
+  name: string;
+  leader_id?: UserId;
+  status: string;
+  github?: string;
+  roadmap: string;
+  introduction: string;
+  field_id?: ProjectField[];
+}
