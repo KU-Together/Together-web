@@ -17,8 +17,15 @@ export default function makeServer({ environment = "test" }) {
           content: "컨텐트 타입",
           user: [
             {
-              userId: 2,
+              id: "2",
+              email: "email@email.com",
+              password: "asdf",
               name: "주권일",
+              nickname: "주권일",
+              major: "컴퓨터정보학",
+              area: "백엔드",
+              introduction: "안녕하세요",
+              project_fields: [],
             },
           ],
         },
