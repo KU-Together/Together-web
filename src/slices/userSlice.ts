@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { User } from "constants/types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { User, UserId } from "constants/types";
+import { URLS } from "constants/urls";
 import { RootState } from "store";
 
 interface UserState {
@@ -12,10 +13,24 @@ const initialState: UserState = {
   value: null,
 };
 
+export const getUser = createAsyncThunk(
+  "user/get",
+  async (userId: UserId): Promise<User> => {
+    const response = await fetch(URLS.together + `user/${userId}`);
+    const user = await response.json();
+    return user;
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+  },
 });
 
 export const {} = userSlice.actions;
