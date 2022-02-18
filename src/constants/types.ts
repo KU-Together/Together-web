@@ -1,4 +1,4 @@
-export type UserId = number;
+export type UserId = string;
 
 export type ProjectId = string;
 
@@ -7,8 +7,33 @@ export type CardId = number;
 export type ParticipantId = string;
 
 export interface User {
-  userId: UserId;
+  id: UserId;
+  email: string;
+  password: string;
   name: string;
+  nickname: string;
+  major: string;
+  area: string;
+  introduction: string;
+  interesting_fields?: Field[];
+  project_fields: ProjectField[];
+}
+
+export type FieldId = string;
+
+export interface Field {
+  id: FieldId;
+  name: string;
+  user: UserId[];
+  project: ProjectId[];
+}
+
+export interface ProjectField {
+  id?: number;
+  numOfPeople: number;
+  project_id: ProjectId;
+  field_id: FieldId;
+  user_id?: number[];
 }
 
 export type Participant = {
