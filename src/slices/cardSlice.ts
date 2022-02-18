@@ -17,7 +17,8 @@ export const fetchAllCards = createAsyncThunk(
   "cards/fetchAll",
   async (): Promise<Card[]> => {
     const response = await fetch(URLS.together + "card");
-    return response.json();
+    const cards = await response.json();
+    return cards;
   }
 );
 
