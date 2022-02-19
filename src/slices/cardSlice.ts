@@ -1,35 +1,45 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Card, CardId } from "constants/types";
+import { Card, CardId, ProjectId } from "constants/types";
 import { RootState } from "store";
 import { URLS } from "constants/urls";
 
 interface CardsState {
-  state: "";
+  state: "idle" | "loading" | "succeeded" | "create-succeeded" | "failed";
+  error: string | null;
   value: Card[];
 }
 
 const initialState: CardsState = {
-  state: "",
+  state: "idle",
+  error: null,
   value: [],
 };
 
-const now = new Date();
-
-const defaultCard: Card = {
-  id: 0,
-  project_id: 1,
-  title: "태스크 타이틀",
-  deadline: now.toString(),
-  status: "진행 중",
-  manager_id: [],
-  assigned_users: [],
-  content: "태스크 디테일",
-};
-
 export const fetchAllCards = createAsyncThunk(
-  "card/fetchAll",
-  async (): Promise<Card[]> => {
-    const response = await fetch(URLS.together + "card");
+  "cards/fetchAll",
+  async (projectId: ProjectId): Promise<Card[]> => {
+    const response = await fetch(URLS.together + `project-card/${projectId}`);
+    const cards = await response.json();
+    return cards;
+  }
+);
+
+export const createCard = createAsyncThunk(
+  "cards/create",
+  async (card: Omit<Card, "user" | "id">): Promise<Card> => {
+    const response = await fetch(URLS.together + "card", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(card),
+    });
+
+    if (response.status !== 201) {
+      throw response.status;
+    }
+
     return response.json();
   }
 );
@@ -43,26 +53,32 @@ const cardsSlice = createSlice({
       const idx = state.value.findIndex((elem) => elem.id === cardId);
       state.value[idx] = { ...action.payload };
     },
-    add: {
-      reducer: (state, action: PayloadAction<Card[]>) => {
-        for (let card of action.payload) {
-          state.value.unshift({
-            ...card,
-            id: 1,
-            deadline: now.toString(),
-          });
-        }
-      },
-      prepare: (value?: Card[]) => ({ payload: value || [defaultCard] }),
-    },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAllCards.pending, (state, action) => {
+      state.state = "loading";
+    });
     builder.addCase(fetchAllCards.fulfilled, (state, action) => {
+      state.state = "succeeded";
       state.value = action.payload;
+    });
+    builder.addCase(fetchAllCards.rejected, (state, action) => {
+      state.state = "failed";
+    });
+    builder.addCase(createCard.pending, (state, action) => {
+      state.state = "loading";
+    });
+    builder.addCase(createCard.fulfilled, (state, action) => {
+      state.state = "create-succeeded";
+    });
+    builder.addCase(createCard.rejected, (state, action) => {
+      state.state = "failed";
+      console.error(action.error);
     });
   },
 });
 
-export const { update, add } = cardsSlice.actions;
+export const { update } = cardsSlice.actions;
 export const selectCards = (state: RootState) => state.cards.value;
+export const selectState = (state: RootState) => state.cards.state;
 export default cardsSlice.reducer;

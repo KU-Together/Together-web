@@ -1,19 +1,42 @@
-export type UserId = number;
-
-export type ProjId = number;
+export type UserId = string;
 
 export type CardId = number;
 
 export type ParticipantId = string;
 
 export interface User {
-  userId: UserId;
+  id: UserId;
+  email: string;
+  password: string;
   name: string;
+  nickname: string;
+  major: string;
+  area: string;
+  introduction: string;
+  interesting_fields?: Field[];
+  project_fields: ProjectField[];
+}
+
+export type FieldId = string;
+
+export interface Field {
+  id: FieldId;
+  name: string;
+  user: UserId[];
+  project: ProjectId[];
+}
+
+export interface ProjectField {
+  id?: number;
+  numOfPeople: number;
+  project_id: ProjectId;
+  field_id: FieldId;
+  user_id?: number[];
 }
 
 export type Participant = {
   participantId: ParticipantId;
-  projId: ProjId;
+  projId: ProjectId;
   userId: UserId;
   color: string;
 };
@@ -22,16 +45,28 @@ export type ParticipantUser = Participant & { user: User };
 
 export interface Card {
   id: CardId;
-  project_id: ProjId;
+  project_id: ProjectId;
   title: string;
-  manager_id: User[] | number[];
   deadline: string;
   status: string;
   content: string;
-  assigned_users: User[] | number[];
+  user: User[] | number[];
 }
 
 export type ResponseResult = {
   code: number;
   error?: string;
 };
+
+export type ProjectId = string;
+
+export interface Project {
+  id: string;
+  name: string;
+  leader_id?: UserId;
+  status: string;
+  github?: string;
+  roadmap: string;
+  introduction: string;
+  field_id?: ProjectField[];
+}
