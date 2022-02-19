@@ -7,6 +7,8 @@ import Main from "pages/main/Main";
 import makeServer from "server";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, selectUser } from "slices/userSlice";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./App.style";
 
 // makeServer({ environment: 'development'})
 
@@ -19,15 +21,17 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<IndexPage />}>
-          <Route path="main/:projectId" element={<Main />} />
-          <Route path="sign-up" element={<SignUpPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<IndexPage />}>
+            <Route path="main/:projectId" element={<Main />} />
+            <Route path="sign-up" element={<SignUpPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
