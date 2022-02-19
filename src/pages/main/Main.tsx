@@ -26,6 +26,7 @@ function Main() {
 
   return (
     <Style.Container>
+      <Style.Project>{project?.name}</Style.Project>
       <Style.KanbanBoard>
         <KanbanCol status="In Progress" cards={cards} />
       </Style.KanbanBoard>

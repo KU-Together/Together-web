@@ -9,7 +9,12 @@ const KanbanBoard = styled.div`
   flex-direction: row;
 `;
 
+const Project = styled.div`
+  ${(props) => props.theme.font_title}
+`;
+
 export default {
   Container,
   KanbanBoard,
+  Project,
 };
