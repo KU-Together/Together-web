@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 100px;
+  padding: 55px 80px;
 `;
 
 const KanbanBoard = styled.div`

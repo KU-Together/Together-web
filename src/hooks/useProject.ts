@@ -2,7 +2,9 @@ import { Project, ProjectId } from "constants/types";
 import { URLS } from "constants/urls";
 import React, { useEffect, useState } from "react";
 
-function useProject() {
+type ReturnTypes = [Project | undefined, (projectId: ProjectId) => void];
+
+function useProject(): ReturnTypes {
   const [project, setProject] = useState<Project | undefined>();
 
   const getProject = async (projectId: ProjectId) => {
