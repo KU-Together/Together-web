@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCards, selectCards } from "slices/cardSlice";
+import { fetchAllCards, selectCards, selectState } from "slices/cardSlice";
 import Style from "./Main.style";
 import KanbanCol from "components/kanbanCol/KanbanCol";
 import { useParams } from "react-router-dom";
@@ -28,7 +28,7 @@ function Main() {
     <Style.Container>
       <Style.Project>{project?.name}</Style.Project>
       <Style.KanbanBoard>
-        <KanbanCol status="In Progress" cards={cards} />
+        <KanbanCol status="In Progress" cards={cards} projectId={project?.id} />
       </Style.KanbanBoard>
     </Style.Container>
   );

@@ -1,9 +1,10 @@
 import { IMAGES } from "constants/images";
-import { Card } from "constants/types";
-import React from "react";
+import { Card, ProjectId } from "constants/types";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { formatDate } from "utils/DateUtils";
 import { useDispatch } from "react-redux";
-import { createCard } from "slices/cardSlice";
+import { createCard, fetchAllCards, selectState } from "slices/cardSlice";
 import {
   Column,
   StatusRow,
@@ -13,10 +14,23 @@ import {
   Icon,
 } from "./KanbanStyles";
 
-const projectId = "a7b69446-0954-4906-96ee-815627841ce2";
-
-function KanbanCol({ status, cards }: { status: string; cards: Card[] }) {
+function KanbanCol({
+  status,
+  cards,
+  projectId,
+}: {
+  status: string;
+  cards: Card[];
+  projectId?: ProjectId;
+}) {
   const dispatch = useDispatch();
+  const cardSliceState = useSelector(selectState);
+
+  useEffect(() => {
+    if (cardSliceState === "create-succeeded" && projectId) {
+      dispatch(fetchAllCards(projectId));
+    }
+  }, [cardSliceState]);
 
   return (
     <Column>
@@ -27,7 +41,7 @@ function KanbanCol({ status, cards }: { status: string; cards: Card[] }) {
           onClick={() => {
             dispatch(
               createCard({
-                project_id: projectId,
+                project_id: projectId || "",
                 title: "제목",
                 deadline: formatDate(new Date()),
                 status: status,
