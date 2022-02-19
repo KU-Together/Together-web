@@ -4,12 +4,14 @@ import { RootState } from "store";
 import { URLS } from "constants/urls";
 
 interface CardsState {
-  state: "";
+  state: "idle" | "loading" | "succeeded" | "create-succeeded" | "failed";
+  error: string | null;
   value: Card[];
 }
 
 const initialState: CardsState = {
-  state: "",
+  state: "idle",
+  error: null,
   value: [],
 };
 
@@ -34,6 +36,10 @@ export const createCard = createAsyncThunk(
       body: JSON.stringify(card),
     });
 
+    if (response.status !== 201) {
+      throw response.status;
+    }
+
     return response.json();
   }
 );
@@ -49,17 +55,24 @@ const cardsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAllCards.pending, (state, action) => {
+      state.state = "loading";
+    });
     builder.addCase(fetchAllCards.fulfilled, (state, action) => {
+      state.state = "succeeded";
       state.value = action.payload;
     });
+    builder.addCase(fetchAllCards.rejected, (state, action) => {
+      state.state = "failed";
+    });
     builder.addCase(createCard.pending, (state, action) => {
-      // console.log(action.meta.arg);
+      state.state = "loading";
     });
     builder.addCase(createCard.fulfilled, (state, action) => {
-      state.value.push(action.payload);
+      state.state = "create-succeeded";
     });
     builder.addCase(createCard.rejected, (state, action) => {
-      console.log(action.payload);
+      state.state = "failed";
       console.error(action.error);
     });
   },
@@ -67,4 +80,5 @@ const cardsSlice = createSlice({
 
 export const { update } = cardsSlice.actions;
 export const selectCards = (state: RootState) => state.cards.value;
+export const selectState = (state: RootState) => state.cards.state;
 export default cardsSlice.reducer;
