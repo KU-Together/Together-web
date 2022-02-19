@@ -5,11 +5,16 @@ import Style from "./Main.style";
 import KanbanCol from "components/kanbanCol/KanbanCol";
 import { useParams } from "react-router-dom";
 import useProject from "hooks/useProject";
+import { ProjectId } from "constants/types";
+
+type Params = {
+  projectId: ProjectId;
+};
 
 function Main() {
   const cards = useSelector(selectCards);
   const dispatch = useDispatch();
-  const params = useParams();
+  const params = useParams<Params>();
   const [project, getProject] = useProject();
 
   useEffect(() => {
