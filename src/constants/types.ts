@@ -43,12 +43,14 @@ export type Participant = {
 
 export type ParticipantUser = Participant & { user: User };
 
+export type CardStatus = string;
+
 export interface Card {
   id: CardId;
   project_id: ProjectId;
   title: string;
   deadline: string;
-  status: string;
+  status: CardStatus;
   content: string;
   user: User[] | number[];
 }
