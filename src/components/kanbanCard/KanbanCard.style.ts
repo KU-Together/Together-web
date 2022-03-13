@@ -11,6 +11,7 @@ const hoverCursor = css`
 const Container = styled.div`
   ${hoverCursor}
   display: inline-block;
+  box-sizing: border-box;
   padding: 15px;
   border-radius: 10px;
   width: 350px;

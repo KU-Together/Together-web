@@ -6,6 +6,7 @@ export const Column = styled.div`
   flex-direction: column;
   padding-left: 25px;
   padding-right: 25px;
+  min-width: 350px;
 `;
 
 export const StatusRow = styled.div`

@@ -43,16 +43,18 @@ export type Participant = {
 
 export type ParticipantUser = Participant & { user: User };
 
-export type CardStatus = string;
+export type CardStatus = "to-do" | "in-progress" | "completed" | "terminated";
 
 export interface Card {
   id: CardId;
-  project_id: ProjectId;
-  title: string;
+  task_title: string;
   deadline: string;
+  task_detail: string;
+  is_memorable: boolean;
+  emoji: string;
+  prev_card: number | null;
+  user_id: UserId;
   status: CardStatus;
-  content: string;
-  user: User[] | number[];
 }
 
 export type ResponseResult = {
