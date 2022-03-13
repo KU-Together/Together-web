@@ -3,7 +3,7 @@ import { useAppDispatch } from "hooks/reduxHooks";
 import React, { useState } from "react";
 import { update } from "slices/cardSlice";
 import { formatDate } from "utils/DateUtils";
-import Style from "./KanbanCardStyles";
+import Style from "./KanbanCard.style";
 
 interface Props {
   className?: string;
@@ -12,19 +12,19 @@ interface Props {
 
 function KanbanCard(props: Props) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [title, setTitle] = useState(props.cardInfo.title);
-  const [detail, setDetail] = useState(props.cardInfo.content);
+  const [title, setTitle] = useState(props.cardInfo.task_title);
+  const [detail, setDetail] = useState(props.cardInfo.task_detail);
   const dispatch = useAppDispatch();
 
   const saveChange = () => {
     setIsEditing(false);
-    dispatch(
-      update({
-        ...props.cardInfo,
-        title: title,
-        content: detail,
-      })
-    );
+    // dispatch(
+    //   update({
+    //     ...props.cardInfo,
+    //     title: title,
+    //     content: detail,
+    //   })
+    // );
   };
 
   return (
@@ -49,38 +49,6 @@ function KanbanCard(props: Props) {
           까지
         </Style.Property>
       </div>
-
-      {/* <Style.PropertyRow>
-        <Style.Property>매니저</Style.Property>
-
-        {props.cardInfo.manager_id.map((user) => {
-          if (typeof user !== "number") {
-            return (
-              <Style.NameTag
-                key={"mngr" + user.userId}
-                // color={participantUser.color}
-                tagName={user.name}
-              />
-            );
-          }
-        })}
-      </Style.PropertyRow> */}
-
-      <Style.PropertyRow>
-        <Style.Property>수행자</Style.Property>
-
-        {props.cardInfo.user.map((participantUser) => {
-          if (typeof participantUser !== "number") {
-            return (
-              <Style.NameTag
-                key={"asgn" + participantUser}
-                // color={participantUser.color}
-                tagName={participantUser.name}
-              />
-            );
-          }
-        })}
-      </Style.PropertyRow>
 
       <Style.Detail
         value={detail}

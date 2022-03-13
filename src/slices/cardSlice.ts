@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Card, CardId, ProjectId, UserId } from "constants/types";
+import { Card, CardId, CardStatus, ProjectId, UserId } from "constants/types";
 import { RootState } from "store";
 import { URLS } from "constants/urls";
 
-export const cardStatus = ["to-do", "in-progress", "completed", "terminated"];
+export const cardStatus: CardStatus[] = [
+  "to-do",
+  "in-progress",
+  "completed",
+  "terminated",
+];
 
 type KanbanCards = { [key: string]: Card[] };
 
@@ -25,17 +30,11 @@ const initialState: CardsState = {
 export const fetchAllCards = createAsyncThunk(
   "cards/fetchAll",
   async (userId: UserId): Promise<KanbanCards> => {
-    console.log("fetchallcards");
     const boardId = 1;
     const allCards: KanbanCards = {};
 
     for (const status of cardStatus) {
       try {
-        console.log(
-          "url",
-          URLS.together +
-            `user/${userId}/board/${boardId}/status/${status}/card`
-        );
         const response = await fetch(
           URLS.together +
             `user/${userId}/board/${boardId}/status/${status}/card`
