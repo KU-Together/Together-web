@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const testUserId = "842dbd0c-0c50-4329-88ac-8c133ccc13f0";
+    const testUserId = 1;
     dispatch(getUser(testUserId));
   }, []);
 
