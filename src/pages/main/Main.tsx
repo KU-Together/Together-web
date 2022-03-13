@@ -7,19 +7,17 @@ import { useParams } from "react-router-dom";
 import useProject from "pages/main/useProject";
 import { ProjectId } from "constants/types";
 import useCard, { UseCardReturnType } from "./useCard";
-
-type Params = {
-  projectId: ProjectId;
-};
+import { selectUser } from "slices/userSlice";
 
 type Card = {
   [key: string]: UseCardReturnType;
 };
 
+export const cardStatus = ["to-do", "in-progress", "completed", "terminated"];
+
 function Main() {
-  const params = useParams<Params>();
-  const [project, getProject] = useProject();
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const allCards = useSelector(selectCards);
   const card: Card = {
     "to-do": useCard(),
@@ -29,16 +27,10 @@ function Main() {
   };
 
   useEffect(() => {
-    if (params.projectId) {
-      getProject(params.projectId);
+    if (user) {
+      dispatch(fetchAllCards(user.id));
     }
-  }, [params]);
-
-  useEffect(() => {
-    if (project) {
-      dispatch(fetchAllCards(project.id));
-    }
-  }, [project]);
+  }, []);
 
   useEffect(() => {
     if (allCards.length > 0) {
@@ -50,13 +42,8 @@ function Main() {
 
   return (
     <Style.Container>
-      <Style.Project>{project?.name}</Style.Project>
       <Style.KanbanBoard>
-        <KanbanCol
-          status="In Progress"
-          cards={allCards}
-          projectId={project?.id}
-        />
+        <KanbanCol status="In Progress" cards={allCards} />
       </Style.KanbanBoard>
     </Style.Container>
   );
