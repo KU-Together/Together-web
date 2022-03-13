@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Card, CardId, ProjectId } from "constants/types";
+import { Card, CardId, ProjectId, UserId } from "constants/types";
 import { RootState } from "store";
 import { URLS } from "constants/urls";
 
@@ -17,8 +17,8 @@ const initialState: CardsState = {
 
 export const fetchAllCards = createAsyncThunk(
   "cards/fetchAll",
-  async (projectId: ProjectId): Promise<Card[]> => {
-    const response = await fetch(URLS.together + `project-card/${projectId}`);
+  async (userId: UserId): Promise<Card[]> => {
+    const response = await fetch(URLS.together + `project-card/${userId}`);
     const cards = await response.json();
     return cards;
   }
