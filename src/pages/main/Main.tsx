@@ -1,11 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCards, selectCards, selectState } from "slices/cardSlice";
+import { fetchAllCards, selectCards } from "slices/cardSlice";
 import Style from "./Main.style";
 import KanbanCol from "components/kanbanCol/KanbanCol";
-import { useParams } from "react-router-dom";
-import useProject from "pages/main/useProject";
-import { ProjectId } from "constants/types";
 import useCard, { UseCardReturnType } from "./useCard";
 import { selectUser } from "slices/userSlice";
 

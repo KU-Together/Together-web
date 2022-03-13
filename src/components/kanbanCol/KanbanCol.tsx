@@ -28,7 +28,7 @@ function KanbanCol({
 
   useEffect(() => {
     if (cardSliceState === "create-succeeded" && projectId) {
-      dispatch(fetchAllCards(projectId));
+      // dispatch(fetchAllCards(projectId));
     }
   }, [cardSliceState]);
 
