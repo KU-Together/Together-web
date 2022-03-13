@@ -3,24 +3,51 @@ import { Card, CardId, ProjectId, UserId } from "constants/types";
 import { RootState } from "store";
 import { URLS } from "constants/urls";
 
+export const cardStatus = ["to-do", "in-progress", "completed", "terminated"];
+
+type KanbanCards = { [key: string]: Card[] };
+
 interface CardsState {
   state: "idle" | "loading" | "succeeded" | "create-succeeded" | "failed";
   error: string | null;
-  value: Card[];
+  value: KanbanCards;
 }
 
 const initialState: CardsState = {
   state: "idle",
   error: null,
-  value: [],
+  value: cardStatus.reduce(
+    (prevObj, status) => ({ ...prevObj, [status]: [] }),
+    {}
+  ),
 };
 
 export const fetchAllCards = createAsyncThunk(
   "cards/fetchAll",
-  async (userId: UserId): Promise<Card[]> => {
-    const response = await fetch(URLS.together + `project-card/${userId}`);
-    const cards = await response.json();
-    return cards;
+  async (userId: UserId): Promise<KanbanCards> => {
+    console.log("fetchallcards");
+    const boardId = 1;
+    const allCards: KanbanCards = {};
+
+    for (const status of cardStatus) {
+      try {
+        console.log(
+          "url",
+          URLS.together +
+            `user/${userId}/board/${boardId}/status/${status}/card`
+        );
+        const response = await fetch(
+          URLS.together +
+            `user/${userId}/board/${boardId}/status/${status}/card`
+        );
+        allCards[status] = await response.json();
+      } catch (error) {
+        allCards[status] = [];
+      }
+    }
+
+    console.log("allCards", allCards);
+    return allCards;
   }
 );
 
@@ -50,8 +77,8 @@ const cardsSlice = createSlice({
   reducers: {
     update: (state, action: PayloadAction<Card>) => {
       const cardId = action.payload.id;
-      const idx = state.value.findIndex((elem) => elem.id === cardId);
-      state.value[idx] = { ...action.payload };
+      // const idx = state.value.findIndex((elem) => elem.id === cardId);
+      // state.value[idx] = { ...action.payload };
     },
   },
   extraReducers: (builder) => {

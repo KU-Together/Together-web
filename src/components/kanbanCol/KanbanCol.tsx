@@ -20,7 +20,7 @@ function KanbanCol({
   projectId,
 }: {
   status: string;
-  cards: Card[];
+  cards?: Card[];
   projectId?: ProjectId;
 }) {
   const dispatch = useDispatch();
@@ -54,9 +54,9 @@ function KanbanCol({
         </AddBtn>
       </StatusRow>
 
-      {cards.map((card) => (
+      {/* {cards.map((card) => (
         <WrappedCard key={card.id} cardInfo={card} />
-      ))}
+      ))} */}
     </Column>
   );
 }
