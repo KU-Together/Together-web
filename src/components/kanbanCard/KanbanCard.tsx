@@ -18,7 +18,9 @@ function KanbanCard(props: Props) {
 
   const saveChange = () => {
     setIsEditing(false);
-    dispatch(modifyCard({ ...props.cardInfo, task_title: title }));
+    dispatch(
+      modifyCard({ ...props.cardInfo, task_title: title, task_detail: detail })
+    );
   };
 
   return (
