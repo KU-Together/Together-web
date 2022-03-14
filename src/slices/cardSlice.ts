@@ -76,8 +76,11 @@ const cardsSlice = createSlice({
   reducers: {
     update: (state, action: PayloadAction<Card>) => {
       const cardId = action.payload.id;
-      // const idx = state.value.findIndex((elem) => elem.id === cardId);
-      // state.value[idx] = { ...action.payload };
+      const cardStatus = action.payload.status;
+      const idx = state.value[cardStatus].findIndex(
+        (elem) => elem.id === cardId
+      );
+      state.value[cardStatus][idx] = { ...action.payload };
     },
   },
   extraReducers: (builder) => {
