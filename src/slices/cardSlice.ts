@@ -3,20 +3,28 @@ import { Card, CardId, CardStatus, ProjectId, UserId } from "constants/types";
 import { RootState } from "store";
 import { URLS } from "constants/urls";
 
+type KanbanCards = { [key: string]: Card[] };
+
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+interface CardsState {
+  state:
+    | "idle"
+    | "loading"
+    | "succeeded"
+    | "create-succeeded"
+    | "modify-succeeded"
+    | "failed";
+  error: string | null;
+  value: KanbanCards;
+}
+
 export const cardStatus: CardStatus[] = [
   "to-do",
   "in-progress",
   "completed",
   "terminated",
 ];
-
-type KanbanCards = { [key: string]: Card[] };
-
-interface CardsState {
-  state: "idle" | "loading" | "succeeded" | "create-succeeded" | "failed";
-  error: string | null;
-  value: KanbanCards;
-}
 
 const initialState: CardsState = {
   state: "idle",
@@ -45,7 +53,6 @@ export const fetchAllCards = createAsyncThunk(
       }
     }
 
-    console.log("allCards", allCards);
     return allCards;
   }
 );
@@ -70,19 +77,39 @@ export const createCard = createAsyncThunk(
   }
 );
 
+export const modifyCard = createAsyncThunk(
+  "cards/modify",
+  async (card: PartialBy<Card, "emoji">): Promise<Card | undefined> => {
+    try {
+      const boardId = 1;
+      delete card.emoji;
+
+      const response = await fetch(
+        URLS.together +
+          `user/${card.user_id}/board/${boardId}/status/${card.status}/card/${card.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(card),
+        }
+      );
+
+      if (response.status !== 200) {
+        const msg = await response.text();
+        throw response.status + " " + msg;
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
 const cardsSlice = createSlice({
   name: "cards",
   initialState,
-  reducers: {
-    update: (state, action: PayloadAction<Card>) => {
-      const cardId = action.payload.id;
-      const cardStatus = action.payload.status;
-      const idx = state.value[cardStatus].findIndex(
-        (elem) => elem.id === cardId
-      );
-      state.value[cardStatus][idx] = { ...action.payload };
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAllCards.pending, (state, action) => {
       state.state = "loading";
@@ -104,10 +131,27 @@ const cardsSlice = createSlice({
       state.state = "failed";
       console.error(action.error);
     });
+    builder.addCase(modifyCard.pending, (state, action) => {
+      state.state = "loading";
+    });
+    builder.addCase(modifyCard.fulfilled, (state, action) => {
+      state.state = "modify-succeeded";
+      const card = action.payload;
+      if (card) {
+        state.value[card.status].forEach((elem, idx) => {
+          if (elem.id === card.id) {
+            state.value[card.status][idx] = card;
+          }
+        });
+      }
+    });
+    builder.addCase(modifyCard.rejected, (state, action) => {
+      state.state = "failed";
+    });
   },
 });
 
-export const { update } = cardsSlice.actions;
+export const {} = cardsSlice.actions;
 export const selectCards = (state: RootState) => state.cards.value;
 export const selectState = (state: RootState) => state.cards.state;
 export default cardsSlice.reducer;

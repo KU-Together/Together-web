@@ -1,7 +1,7 @@
 import { Card, User } from "constants/types";
 import { useAppDispatch } from "hooks/reduxHooks";
 import React, { useState } from "react";
-import { update } from "slices/cardSlice";
+import { modifyCard } from "slices/cardSlice";
 import { formatDate } from "utils/DateUtils";
 import Style from "./KanbanCard.style";
 
@@ -18,13 +18,7 @@ function KanbanCard(props: Props) {
 
   const saveChange = () => {
     setIsEditing(false);
-    dispatch(
-      update({
-        ...props.cardInfo,
-        task_title: title,
-        task_detail: detail,
-      })
-    );
+    dispatch(modifyCard({ ...props.cardInfo, task_title: title }));
   };
 
   return (
