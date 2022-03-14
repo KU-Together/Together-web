@@ -22,7 +22,6 @@ import {
 function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
   const dispatch = useDispatch();
   const cards = useSelector(selectCards);
-  console.log(cards[status]);
 
   return (
     <Column>
