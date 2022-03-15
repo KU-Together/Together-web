@@ -16,6 +16,7 @@ const Container = styled.div`
   border-radius: 10px;
   width: 350px;
   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.29);
+  background-color: white;
 `;
 
 interface TitleProps {

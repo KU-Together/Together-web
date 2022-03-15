@@ -1,30 +1,46 @@
+import KanbanCard from "components/kanbanCard/KanbanCard";
 import { IMAGES } from "constants/images";
 import { Card, CardStatus, ProjectId } from "constants/types";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { formatDate } from "utils/DateUtils";
 import { useDispatch } from "react-redux";
-import {
-  createCard,
-  fetchAllCards,
-  selectCards,
-  selectState,
-} from "slices/cardSlice";
+import { selectCards } from "slices/cardSlice";
 import {
   Column,
   StatusRow,
   Status,
   AddBtn,
-  WrappedCard,
+  CardWrapper,
   Icon,
 } from "./KanbanCol.style";
+
+const drag = (
+  e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
+) => {
+  e.dataTransfer.setData("id", e.target.id);
+};
+
+const allowDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  e.preventDefault();
+};
+
+const drop = (
+  e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
+) => {
+  e.preventDefault();
+  const id = e.dataTransfer?.getData("id");
+  const draggedElem = document.getElementById(id || "");
+  if (e.target && draggedElem) {
+    e.target.appendChild(draggedElem);
+  }
+};
 
 function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
   const dispatch = useDispatch();
   const cards = useSelector(selectCards);
 
   return (
-    <Column>
+    <Column onDrop={drop} onDragOver={allowDrop}>
       <StatusRow>
         <Status>{title || ""}</Status>
 
@@ -46,7 +62,14 @@ function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
       </StatusRow>
 
       {cards[status]?.map((card) => (
-        <WrappedCard key={card.id} cardInfo={card} />
+        <CardWrapper
+          draggable="true"
+          onDragStart={drag}
+          id={"card-" + card.id}
+          key={card.id}
+        >
+          <KanbanCard cardInfo={card} />
+        </CardWrapper>
       ))}
     </Column>
   );

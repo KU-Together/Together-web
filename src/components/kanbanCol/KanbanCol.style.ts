@@ -24,7 +24,7 @@ export const Status = styled.span`
   flex: 1;
 `;
 
-export const WrappedCard = styled(KanbanCard)`
+export const CardWrapper = styled.div`
   margin-top: 6px;
   margin-bottom: 6px;
 `;
