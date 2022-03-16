@@ -38,7 +38,10 @@ const Divider = () => {
     const curElem = e.target;
     const dropElem = document.getElementById(id || "");
     if (curElem && dropElem) {
-      curElem.parentNode?.insertBefore(dropElem, curElem.nextSibling);
+      curElem.parentNode?.parentNode?.insertBefore(
+        dropElem,
+        curElem.parentNode.nextSibling
+      );
     }
   };
 
@@ -78,15 +81,11 @@ function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
         </Style.AddBtn>
       </Style.StatusRow>
 
-      <Divider />
+      <div>
+        <Divider />
+      </div>
 
       {cards[status]?.map((card) => (
-        // <Style.CardWrapper
-        //   draggable="true"
-        //   onDragStart={drag}
-        //   id={"card-" + card.id}
-        //   key={card.id}
-        // >
         <div
           draggable="true"
           onDragStart={drag}
@@ -96,7 +95,6 @@ function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
           <KanbanCard cardInfo={card} />
           <Divider />
         </div>
-        // </Style.CardWrapper>
       ))}
     </Style.Column>
   );

@@ -47,8 +47,8 @@ type DividerProps = {
 };
 
 const divider = styled.div<DividerProps>`
-  height: ${(props) => (props.dragOver ? "130px" : "12px")};
-  transition: height 0.5s;
+  height: ${(props) => (props.dragOver ? "150px" : "12px")};
+  transition: ${(props) => (props.dragOver ? "height 0.5s" : "")};
 `;
 
 export default {
