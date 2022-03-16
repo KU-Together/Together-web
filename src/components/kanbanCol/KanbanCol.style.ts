@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import KanbanCard from "components/kanbanCard/KanbanCard";
 
-export const Column = styled.div`
+const Column = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 25px;
@@ -9,7 +9,7 @@ export const Column = styled.div`
   min-width: 350px;
 `;
 
-export const StatusRow = styled.div`
+const StatusRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -18,18 +18,18 @@ export const StatusRow = styled.div`
   padding-right: 5px;
 `;
 
-export const Status = styled.span`
+const Status = styled.span`
   font-size: medium;
   font-weight: bold;
   flex: 1;
 `;
 
-export const CardWrapper = styled.div`
+const CardWrapper = styled.div`
   margin-top: 6px;
   margin-bottom: 6px;
 `;
 
-export const AddBtn = styled.div`
+const AddBtn = styled.div`
   width: 20px;
   height: 20px;
   &:hover {
@@ -37,7 +37,26 @@ export const AddBtn = styled.div`
   }
 `;
 
-export const Icon = styled.img`
+const Icon = styled.img`
   max-width: 100%;
   max-height: 100%;
 `;
+
+type DividerProps = {
+  dragOver: boolean;
+};
+
+const divider = styled.div<DividerProps>`
+  height: ${(props) => (props.dragOver ? "130px" : "12px")};
+  transition: height 0.5s;
+`;
+
+export default {
+  Column,
+  StatusRow,
+  Status,
+  CardWrapper,
+  AddBtn,
+  Icon,
+  divider,
+};

@@ -1,18 +1,11 @@
 import KanbanCard from "components/kanbanCard/KanbanCard";
 import { IMAGES } from "constants/images";
 import { Card, CardStatus, ProjectId } from "constants/types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { selectCards } from "slices/cardSlice";
-import {
-  Column,
-  StatusRow,
-  Status,
-  AddBtn,
-  CardWrapper,
-  Icon,
-} from "./KanbanCol.style";
+import Style from "./KanbanCol.style";
 
 const drag = (
   e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
@@ -20,19 +13,43 @@ const drag = (
   e.dataTransfer.setData("id", e.target.id);
 };
 
-const allowDrop = (e: React.DragEvent<HTMLDivElement>) => {
-  e.preventDefault();
-};
+const Divider = () => {
+  const [dragOver, setDragOver] = useState(false);
 
-const drop = (
-  e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
-) => {
-  e.preventDefault();
-  const id = e.dataTransfer?.getData("id");
-  const draggedElem = document.getElementById(id || "");
-  if (e.target && draggedElem) {
-    e.target.appendChild(draggedElem);
-  }
+  const allowDrop = (
+    e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
+  ) => {
+    setDragOver(true);
+    e.preventDefault();
+  };
+
+  const leaveDropZone = (
+    e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
+  ) => {
+    setDragOver(false);
+  };
+
+  const drop = (
+    e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement }
+  ) => {
+    setDragOver(false);
+    e.preventDefault();
+    const id = e.dataTransfer?.getData("id");
+    const curElem = e.target;
+    const dropElem = document.getElementById(id || "");
+    if (curElem && dropElem) {
+      curElem.parentNode?.insertBefore(dropElem, curElem.nextSibling);
+    }
+  };
+
+  return (
+    <Style.divider
+      dragOver={dragOver}
+      onDrop={drop}
+      onDragOver={allowDrop}
+      onDragLeave={leaveDropZone}
+    />
+  );
 };
 
 function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
@@ -40,11 +57,11 @@ function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
   const cards = useSelector(selectCards);
 
   return (
-    <Column onDrop={drop} onDragOver={allowDrop}>
-      <StatusRow>
-        <Status>{title || ""}</Status>
+    <Style.Column>
+      <Style.StatusRow>
+        <Style.Status>{title || ""}</Style.Status>
 
-        <AddBtn
+        <Style.AddBtn
           onClick={() => {
             // dispatch(
             //   createCard({
@@ -57,21 +74,31 @@ function KanbanCol({ title, status }: { title: string; status: CardStatus }) {
             // );
           }}
         >
-          <Icon src={IMAGES.add} />
-        </AddBtn>
-      </StatusRow>
+          <Style.Icon src={IMAGES.add} />
+        </Style.AddBtn>
+      </Style.StatusRow>
+
+      <Divider />
 
       {cards[status]?.map((card) => (
-        <CardWrapper
+        // <Style.CardWrapper
+        //   draggable="true"
+        //   onDragStart={drag}
+        //   id={"card-" + card.id}
+        //   key={card.id}
+        // >
+        <div
           draggable="true"
           onDragStart={drag}
           id={"card-" + card.id}
           key={card.id}
         >
           <KanbanCard cardInfo={card} />
-        </CardWrapper>
+          <Divider />
+        </div>
+        // </Style.CardWrapper>
       ))}
-    </Column>
+    </Style.Column>
   );
 }
 
